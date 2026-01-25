@@ -14,6 +14,34 @@ INSERT INTO project_tasks
 (task_name,start_time,planned_duration,actual) 
 
 
+
+--Calculationg the deadlines
 SELECT task_name,start_time,planned_duration,
 (start_time+planned_duration) AS expected_deadline
+FROM project_tasks;
+
+--Here time overrun
+ 
+SELECT 
+task_name,actual_end_time - (start_time + planned_duration)
+AS time_overrun
+FROM project_tasks;
+
+SELECT 
+task_name,actual_end_time - (start_time + planned_duration)
+AS time_overrun
+FROM project_tasks
+WHERE actual_end_time IS NOT NULL;
+
+--Using AGE()
+--AGE() is a specialized function used to calculate the human readable difference between two timestamps
+SELECT
+task_name,AGE(actual_end_time,start_time) AS total_time_taken
+FROM project_tasks
+WHERE actual_end_time IS NOT NULL;
+
+
+
+SELECT
+task_name,AGE(actual_end_time,start_time) AS total_time_taken
 FROM project_tasks;
