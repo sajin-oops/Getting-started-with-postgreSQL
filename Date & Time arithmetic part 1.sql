@@ -45,3 +45,17 @@ WHERE actual_end_time IS NOT NULL;
 SELECT
 task_name,AGE(actual_end_time,start_time) AS total_time_taken
 FROM project_tasks;
+
+
+-- Filtering with date arithmetic
+
+SELECT * FROM project_tasks;
+
+
+SELECT task_name,start_time
+FROM project_tasks
+WHERE start_time < NOW() - INTERVAL '10 days';
+
+SELECT task_name,start_time
+FROM project_tasks
+WHERE start_time < NOW() - INTERVAL '14 days';
