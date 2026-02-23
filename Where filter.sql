@@ -38,3 +38,8 @@ INNER JOIN departments d
 ON s.dept_id = d.id
 WHERE d.dept_name = 'CSE';
 
+SELECT s.name,d.dept_name
+FROM students s
+INNER JOIN departments d
+ON s.dept_id = d.id
+AND d.dept_name = 'CSE';
