@@ -238,3 +238,31 @@ WHERE id = 4;
 --Q4
 SELECT * FROM employees;
 
+
+/*
+			Exercise 9 — ALTER TABLE
+
+Q1. Add a new column called email with type VARCHAR(150).
+Q2. Rename the column hire_date to joined_date.
+Q3. Drop the email column you just added.
+Q4. Verify the final table structure with:
+
+*/
+
+-- Q1
+ALTER TABLE employees
+ADD COLUMN email VARCHAR(150);
+
+SELECT * FROM employees;
+
+-- Q2
+ALTER TABLE employees
+RENAME COLUMN hire_date TO joined_date;
+
+--Q3
+ALTER TABLE employees
+DROP COLUMN email;
+
+--Q4
+SELECT * FROM employees;
+
