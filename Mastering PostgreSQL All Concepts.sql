@@ -266,3 +266,44 @@ DROP COLUMN email;
 --Q4
 SELECT * FROM employees;
 
+
+-- Exercise 10 — JOINS
+
+CREATE TABLE departments(
+	dept_id SERIAL PRIMARY KEY,
+	dept_name VARCHAR(50),
+	location VARCHAR(100)
+);
+
+INSERT INTO departments(dept_name,location)
+VALUES
+('Engineering','Bangalore'),
+('Marketing','Mumbai'),
+('HR','Delhi'),
+('Finance','Chennai');
+
+SELECT * FROM departments;
+
+/*
+					Exercise 10 — JOINS
+					
+Q1. Get all employees with their department location using INNER JOIN.
+Q2. Get all employees including those without a matching department using LEFT JOIN.
+Q3. Get all departments including those without employees using RIGHT JOIN.
+Q4. Get everything from both tables using FULL JOIN.
+
+*/
+--Testing query
+
+
+SELECT * FROM employees;
+SELECT * FROM departments;
+
+SELECT e.name,d.location FROM employees e
+INNER JOIN departments d ON e.department = d.dept_name;
+
+
+
+
+SELECT e.name,d.location FROM employees e  --raise
+INNER JOIN departments d ON e.department = d.dept_name;
