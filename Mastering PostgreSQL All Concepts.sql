@@ -299,14 +299,15 @@ Q4. Get everything from both tables using FULL JOIN.
 SELECT * FROM employees;
 SELECT * FROM departments;
 
-SELECT e.name,d.location FROM employees e
-INNER JOIN departments d ON e.department = d.dept_name; 
-
-
-
 
 SELECT e.name,d.location FROM employees e  --raise
 INNER JOIN departments d ON e.department = d.dept_name;
 
 SELECT e.name,d.location FROM employees e
 LEFT JOIN departments d ON e.department = d.dept_name;
+
+SELECT * FROM employees 
+INNER JOIN departments ON employees.id = departments.dept_id;
+
+SELECT e.name,d.location FROM employees e
+INNER JOIN departments d ON e.department = d.dept_name;
