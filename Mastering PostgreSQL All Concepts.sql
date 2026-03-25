@@ -319,3 +319,58 @@ RIGHT JOIN departments d ON e.department = d.dept_name;
 --Q4
 SELECT e.name, d.location FROM employees e
 FULL JOIN departments d ON e.department = d.dept_name;
+
+
+
+
+
+
+--Onces again gonna try joins 
+
+
+
+/*
+					Exercise 10 — JOINS
+					
+Q1. Get all employees with their department location using INNER JOIN.
+Q2. Get all employees including those without a matching department using LEFT JOIN.
+Q3. Get all departments including those without employees using RIGHT JOIN.
+Q4. Get everything from both tables using FULL JOIN.
+
+*/
+
+
+--view the table structure 
+SELECT * FROM employees;
+
+SELECT * FROM departments;
+
+--task one - Get all employees with their department location using INNER JOIN.
+
+SELECT e.name,d.location FROM employees e
+INNER JOIN departments d ON e.department = d.dept_name;  --This query worked yessss :)
+
+
+--task two - Get all employees including those without a matching department using LEFT JOIN.
+SELECT e.name,d.location FROM employees e
+LEFT JOIN departments d ON e.department = d.dept_name;  -- This query worked yes :)
+
+
+--task three - Get all departments including those without employees using RIGHT JOIN.
+SELECT e.name,d.dept_name FROM employees e
+RIGHT JOIN departments d ON e.department = d.dept_name; --little bit different but still delivery correct using the right joins
+
+--task four - Get everything from both tables using FULL JOIN.
+SELECT e.name,d.dept_name FROM employees e
+FULL JOIN departments d ON e.department = d.dept_name;
+
+SELECT * FROM employees e
+FULL JOIN departments d ON e.department = d.dept_name; --perfect one
+
+
+
+-- 🟡 Exercise 11 — Subqueries
+
+-- Q1. Get all employees whose salary is above the average salary.
+-- Q2. Get all employees who work in the same department as Sajin.
+-- Q3. Get the employee with the highest salary using a subquery.
