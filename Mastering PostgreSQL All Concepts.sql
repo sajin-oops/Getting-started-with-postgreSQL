@@ -374,3 +374,24 @@ FULL JOIN departments d ON e.department = d.dept_name; --perfect one
 -- Q1. Get all employees whose salary is above the average salary.
 -- Q2. Get all employees who work in the same department as Sajin.
 -- Q3. Get the employee with the highest salary using a subquery.
+
+
+SELECT name, 
+(SELECT AVG(salary) AS AVERAGE FROM employees) FROM employees;
+
+
+--Q1
+SELECT * FROM employees WHERE salary >(SELECT AVG(salary) FROM employees);
+
+--Q2
+SELECT * FROM employees; 
+
+SELECT * FROM employees 
+WHERE department = (SELECT department FROM employees WHERE name = 'Sajin');
+
+--Q3
+SELECT * FROM employees
+WHERE salary = (SELECT MAX(salary)FROM employees);
+
+
+--Well done :)
