@@ -395,3 +395,14 @@ WHERE salary = (SELECT MAX(salary)FROM employees);
 
 
 --Well done :)
+
+-- Different subquery
+SELECT * FROM employees; 
+SELECT * FROM departments;
+
+SELECT * FROM departments
+WHERE location = (SELECT location FROM departments WHERE location = 'Chennai');
+
+
+SELECT * FROM departments 
+WHERE location = 'Chennai'; 
