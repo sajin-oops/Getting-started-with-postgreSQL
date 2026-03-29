@@ -406,3 +406,75 @@ WHERE location = (SELECT location FROM departments WHERE location = 'Chennai');
 
 SELECT * FROM departments 
 WHERE location = 'Chennai'; 
+
+
+-- --CASE WHEN
+
+-- 🟡 Exercise 12 — CASE WHEN
+-- Q1. Add a column called salary_grade that shows:
+
+-- 'High' if salary > 70000
+-- 'Medium' if salary is between 50000 and 70000 
+-- 'Low' if salary < 50000
+
+-- Q2. Add a column called experience that shows:
+
+-- 'Senior' if joined before 2021
+-- 'Junior' if joined in 2021 or after
+
+
+SELECT * FROM employees;
+SELECT * FROM departments;
+
+	
+--Q1
+SELECT name,department,salary,
+CASE 
+WHEN salary > 70000 THEN 'high'
+WHEN salary BETWEEN 50000 AND 70000 THEN 'medium'
+ELSE 'low'
+END AS salary_grade
+FROM employees;
+
+
+
+SELECT name,department,salary,
+CASE 
+WHEN salary > 70000 THEN 'High'
+WHEN salary > 60000 THEN 'Medium'
+ELSE 'Low'
+END AS comparison
+FROM employees;
+
+
+SELECT name,salary,
+CASE 
+WHEN salary >75000 THEN 'Good'
+WHEN salary >69000 THEN 'Average'
+ELSE 'Learning' END AS Status
+FROM employees;
+
+SELECT * FROM employees;
+
+SELECT name,department,
+CASE WHEN department = 'HR' THEN 'health error'
+WHEN department = 'Marketing' THEN 'Brainey'
+ELSE 'None'
+END AS Report_Data
+FROM  employees;
+
+
+-- Q2. Add a column called experience that shows:
+
+-- 'Senior' if joined before 2021
+-- 'Junior' if joined in 2021 or after
+
+SELECT * FROM employees;
+
+SELECT name,joined_date,
+CASE
+WHEN joined_date > '2021-01-01' THEN 'Junior'
+ELSE 'Senior' END AS experience
+FROM employees;
+
+
