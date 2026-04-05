@@ -151,7 +151,7 @@ Q4. Get the highest salary in each department.
 
 */
 
-SELECT * FROM employees
+SELECT * FROM employees;
 --Q1
 SELECT department,sum(salary) AS Total_Salary FROM employees GROUP BY department;
 
@@ -478,3 +478,32 @@ ELSE 'Senior' END AS experience
 FROM employees;
 
 
+
+SELECT id,name,
+CASE 
+WHEN salary > 94000 THEN 'LEGEND'
+ELSE 'NORMAL'	
+END AS Status
+FROM employees; 	
+
+
+--Window functions
+SELECT * FROM employees;
+
+SELECT name,department,salary,
+ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) as row_num
+FROM employees; 
+
+
+
+SELECT * FROM employees;
+SELECT * FROM departments;
+
+
+SELECT name,department,salary,
+ROW_NUMBER() OVER (PARTITION BY department ORDER BY department)
+FROM employees;
+
+SELECT name,salary,
+RANK() OVER (PARTITION BY department ORDER BY department)
+FROM employees;
