@@ -504,6 +504,21 @@ SELECT name,department,salary,
 ROW_NUMBER() OVER (PARTITION BY department ORDER BY department)
 FROM employees;
 
-SELECT name,salary,
-RANK() OVER (PARTITION BY department ORDER BY department)
+SELECT name,salary,department,
+RANK() OVER (PARTITION BY department ORDER BY department) as ranks
+FROM employees;
+
+
+'''
+
+Breaking it down:
+
+function() → the calculation (ROW_NUMBER, RANK, SUM, AVG etc.)
+OVER → tells SQL this is a window function
+PARTITION BY → groups the rows (like GROUP BY but keeps all rows)
+ORDER BY → sorts within each group
+
+'''  
+SELECT name,salary,department,
+RANK() OVER (PARTITION BY department ORDER BY salary DESC) AS rank
 FROM employees;
