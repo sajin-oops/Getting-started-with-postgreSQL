@@ -100,3 +100,45 @@ Q4. Get the highest and lowest salary in one query.
 Q5. Get all 4 — COUNT, SUM, AVG, MIN, MAX in a single query with proper aliases.
 */
 
+SELECT * FROM emp;
+SELECT COUNT(name) AS no_of_employees FROM emp;
+SELECT SUM(salary) AS Total_salary FROM emp;
+
+SELECT AVG(salary) AS average_salary FROM emp;
+SELECT MAX(salary) AS Highest_Salary,MIN(salary) AS Lowest_Salary FROM emp;
+
+SELECT COUNT(name) AS No_of_employees,
+SUM(salary) AS Total_salary,
+AVG(salary) AS Average_salary,
+MIN(salary) AS Minimum_salary,
+MAX(salary) AS Maximum_salary
+FROM emp;
+
+
+-- EXERCISE - 6 GROUP BY
+/*
+Q1. Get the total salary per department.
+Q2. Get the average salary per department.
+Q3. Get the number of employees in each department.
+Q4. Get the highest salary in each department.
+*/
+
+
+SELECT department, SUM(salary) AS Total_salary FROM emp GROUP BY department;
+SELECT department, AVG(salary) AS Average_salary FROM emp GROUP BY department;
+SELECT department,COUNT(name) AS no_of_employee FROM emp GROUP BY department;
+SELECT department,MAX(salary) AS High_salary FROM emp GROUP BY department;
+
+
+-- Exercise 7 - HAVING
+/*
+TIPS TO REMEMBER 
+			WHERE - Filters rows before grouping
+			HAVING - Filers groups after grouping
+
+Q1. Get departments where the total salary is greater than 150000.
+Q2. Get departments where the average salary is greater than 60000.
+Q3. Get departments that have more than 2 employees.
+Q4. Get departments where the highest salary is greater than 75000.
+
+*/
