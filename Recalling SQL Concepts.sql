@@ -142,3 +142,5 @@ Q3. Get departments that have more than 2 employees.
 Q4. Get departments where the highest salary is greater than 75000.
 
 */
+
+SELECT SUM(salary) AS total_salary,department FROM emp GROUP BY department HAVING SUM(salary) > 150000;
