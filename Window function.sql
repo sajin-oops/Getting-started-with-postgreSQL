@@ -82,3 +82,9 @@ OVER(ORDER BY hire_date) AS running_salary_total,
 COUNT(*) OVER(ORDER BY hire_date) AS employees_hired_so_far
 FROM employ ORDER BY hire_date;
 
+
+--Ranking functions
+SELECT name,department,salary,ROW_NUMBER() OVER(PARTITION BY department ORDER BY salary DESC) AS row_num,
+RANK() OVER(PARTITION BY department ORDER BY salary DESC) AS rank,
+DENSE_RANK() OVER(PARTITION BY department ORDER BY salary DESC) AS dense_rank
+FROM employ;
