@@ -88,3 +88,8 @@ SELECT name,department,salary,ROW_NUMBER() OVER(PARTITION BY department ORDER BY
 RANK() OVER(PARTITION BY department ORDER BY salary DESC) AS rank,
 DENSE_RANK() OVER(PARTITION BY department ORDER BY salary DESC) AS dense_rank
 FROM employ;
+
+
+-- top earner by department wise..
+SELECT name,department,salary,FIRST_VALUE(name) OVER(PARTITION BY department ORDER BY salary DESC) AS top_earner
+FROM employ;
