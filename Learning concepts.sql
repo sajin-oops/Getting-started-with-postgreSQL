@@ -54,3 +54,12 @@ SELECT * FROM em;
 
 SELECT emp_id,emp_name,department, 
 ROW_NUMBER() OVER() FROM em;
+
+-- lets try ROW_NUMBER(),RANK(),DENSE_RANK()
+SELECT * FROM em;
+
+SELECT emp_id,emp_name,department,salary,
+	ROW_NUMBER() OVER(PARTITION BY department ORDER BY salary DESC), 
+	RANK() OVER(PARTITION BY department ORDER BY salary DESC),
+	DENSE_RANK() OVER(PARTITION BY department ORDER BY salary DESC) 
+FROM em;
