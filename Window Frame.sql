@@ -1,4 +1,5 @@
 
+
 CREATE TABLE em(
 id SERIAL PRIMARY KEY,
 name VARCHAR(100),
@@ -96,3 +97,48 @@ SELECT PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY salary) AS median_salary,
 PERCENTILE_CONT(0.95) WITHIN GROUP (ORDER BY salary) AS P95_salary,
 PERCENTILE_CONT(0.99) WITHIN GROUP (ORDER BY salary) AS P99_salary
 FROM em;
+
+
+--Common table expressions(CTE)
+
+WITH dept_stats AS(
+	SELECT
+	department,
+	COUNT(*) AS head_count,
+	ROUND(AVG(salary),0) AS avg_salary,
+	MAX(salary) AS max_salary,
+	MIN(salary) AS min_salry
+	FROM em
+	GROUP BY department
+)
+SELECT * 	
+FROM dept_stats
+ORDER BY avg_salary DESC;
+
+
+--instead of doing subqury we use it inside CTE 
+--example
+
+
+	SELECT
+	department,
+	COUNT(*) AS head_count,
+	ROUND(AVG(salary), 0) AS avg_salary,
+	MAX(salary) AS max_salary,
+	MIN(salary) AS min_salry
+	FROM em
+	GROUP BY department
+
+
+--another one
+
+WITH demo_test AS(
+	SELECT name,department FROM em
+)
+SELECT * FROM demo_test;
+
+-- another one 
+WITH demo_test AS(
+	SELECT name,department,salary FROM em
+)
+SELECT * FROM demo_test;
