@@ -142,3 +142,31 @@ WITH demo_test AS(
 	SELECT name,department,salary FROM em
 )
 SELECT * FROM demo_test;
+
+
+
+
+
+-- CTE With Window function
+
+WITH ranked AS(
+	SELECT name,department,salary,
+	RANK() OVER(
+		PARTITION BY department
+		ORDER BY salary DESC 
+	) AS dept_rank
+	FROM em
+)
+SELECT * FROM ranked;
+
+--Another one 
+WITH ranked AS(
+	SELECT name,department,salary,
+	RANK() OVER(
+		PARTITION BY department
+		ORDER BY salary DESC 
+	) AS dept_rank
+	FROM em
+)
+SELECT * FROM ranked
+WHERE dept_rank = 1;
