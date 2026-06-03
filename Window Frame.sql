@@ -1,5 +1,6 @@
 
 
+
 CREATE TABLE em(
 id SERIAL PRIMARY KEY,
 name VARCHAR(100),
@@ -170,3 +171,29 @@ WITH ranked AS(
 )
 SELECT * FROM ranked
 WHERE dept_rank = 1;
+
+
+SELECT * FROM em;
+
+--Multiple CTEs
+WITH
+	-- CTE 1 
+	senior_emps AS(
+		SELECT * FROM em
+		WHERE hire_date < '2020-12-01'
+	),
+	-- CTE 2
+	rich_depts AS(
+		SELECT department FROM em
+		GROUP BY department
+		HAVING AVG(salary) > 60000
+	),
+	--CTE 3
+	result AS(
+		SELECT s.name,s.department,
+		s.salary,s.hire_date
+		FROM senior_emps s
+		JOIN rich_depts r USING (department)
+	)
+SELECT * FROM result
+ORDER BY salary DESC;  
