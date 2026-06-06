@@ -1,6 +1,7 @@
 
 
 
+
 CREATE TABLE em(
 id SERIAL PRIMARY KEY,
 name VARCHAR(100),
@@ -197,3 +198,57 @@ WITH
 	)
 SELECT * FROM result
 ORDER BY salary DESC;  
+
+ 
+
+--Recursive CTE
+WITH RECURSIVE salary_bands(band,low,high) AS(
+	SELECT 1,40000::numeric, 60000::numeric
+	UNION ALL
+
+	SELECT band + 1,
+	high,
+	high + 20000
+	FROM salary_bands
+	WHERE high < 100000
+)
+	SELECT 
+	sb.band,
+	sb.low AS range_start,
+	sb.high AS range_end,
+	COUNT(e.id) AS employees,
+	STRING_AGG(e.name,', ' ORDER BY e.name) AS names
+	FROM salary_bands sb
+	LEFT JOIN em e ON e.salary >= sb.low
+	AND e.salary < sb.high
+	GROUP BY sb.band, sb.low,sb.high
+	ORDER BY sb.band;
+
+
+SELECT * FROM em;
+
+
+
+--Writeable CTE
+--giving engineering a 10% raise
+
+WITH updated AS(
+	UPDATE em
+	SET department = 'Engineering'
+	RETURNING 
+	 id,name,department,
+	 salary / 1.10 AS old_salary,
+	 salary AS new_salary
+)
+SELECT 
+	name,
+	ROUND(old_salary,0) AS old_salary,
+	ROUND(new_salary,0) AS new_salary,
+	ROUND(new_salary - old_salary,0) AS raise
+FROM updated
+ORDER BY raise DESC;
+
+
+
+
+SELECT * FROM em;
