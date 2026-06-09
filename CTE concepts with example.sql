@@ -108,3 +108,11 @@ FROM one;
 SELECT name,department,salary,
 ROUND(AVG(salary) OVER(PARTITION BY department),2) AS Avg_salary_department
 FROM one;
+
+
+
+-- Counting departments
+SELECT 
+	name,department,salary,
+	ROW_NUMBER() OVER(PARTITION BY department) AS No_Of_Departs
+	FROM one;                  
