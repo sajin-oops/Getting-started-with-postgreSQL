@@ -51,4 +51,60 @@ SELECT * FROM result;
 -- SELECT * FROM three;
 
 
+WITH salary_detail AS(
+	SELECT name,salary FROM one
+),
+	average AS(
+		SELECT AVG(salary) AS average_salary,MAX(salary) AS maximum_salary,
+		MIN(salary) AS minimum_salary FROM one	
+	)
+SELECT * FROM average;
 
+
+SELECT * FROM one;
+
+
+
+WITH salary_detail AS(
+		SELECT name,salary FROM one
+),
+	average AS(
+		SELECT AVG(salary) AS average_salary,MAX(salary) AS maximum_salary,
+		MIN(salary) AS minimum_salary FROM one	
+	),
+	high_pay AS(
+		SELECT name,salary > 70000 AS high_pays FROM one
+	)
+	SELECT * FROM high_pay;
+
+
+
+--Window function
+
+SELECT 
+	name,department,salary,
+	ROW_NUMBER() OVER() AS No_Of_Rows
+	FROM one;
+	
+
+
+SELECT 
+	name,department,salary,hire_date AS Seniors FROM one
+	 ORDER BY hire_date DESC;
+
+	
+-- 								WINDOW FUNCTIONS
+-- department wise total salary
+SELECT name,department,salary,
+SUM(salary) OVER(PARTITION BY department) AS dept_total
+FROM one;
+
+-- Counting departments
+SELECT name,department,salary,
+COUNT(department) OVER(PARTITION BY department) AS No_Of_Departs
+FROM one;
+
+--Finding average salary 
+SELECT name,department,salary,
+ROUND(AVG(salary) OVER(PARTITION BY department),2) AS Avg_salary_department
+FROM one;
