@@ -1,3 +1,4 @@
+
 CREATE TABLE one(
 id SERIAL PRIMARY KEY,
 name VARCHAR(100),
@@ -116,3 +117,17 @@ SELECT
 	name,department,salary,
 	ROW_NUMBER() OVER(PARTITION BY department) AS No_Of_Departs
 	FROM one;                  
+
+
+SELECT * FROM one;
+
+
+--roll up
+SELECT department,SUM(salary) AS total_salary
+FROM one
+GROUP BY ROLLUP(department)
+ORDER BY department;
+
+
+SELECT department,SUM(salary) AS total_salary FROM one
+GROUP BY department;
