@@ -131,3 +131,26 @@ ORDER BY department;
 
 SELECT department,SUM(salary) AS total_salary FROM one
 GROUP BY department;
+
+/*
+WITH salary_detail AS(
+	SELECT name,salary FROM one
+),
+	average AS(
+		SELECT AVG(salary) AS average_salary,MAX(salary) AS maximum_salary,
+		MIN(salary) AS minimum_salary FROM one	
+	)
+SELECT * FROM average;
+
+*/
+
+SELECT name,
+AVG(salary) AS average_salary,
+MAX(salary) AS maximum_salary,
+MIN(salary) AS minimum_salary
+FROM one
+GROUP BY ROLLUP(name);
+
+SELECT * FROM one;
+
+SELECT AVG(salary) AS Avg_salary FROM one;
