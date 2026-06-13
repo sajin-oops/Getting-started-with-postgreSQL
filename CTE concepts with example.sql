@@ -154,3 +154,14 @@ GROUP BY ROLLUP(name);
 SELECT * FROM one;
 
 SELECT AVG(salary) AS Avg_salary FROM one;
+
+
+-- ROLLUP
+
+SELECT 
+	COALESCE(department,'TOTAL') AS department,
+	COUNT(*) AS employees,
+	SUM(salary) AS payroll
+FROM one
+GROUP BY ROLLUP(department)
+ORDER BY department NULLS LAST;
