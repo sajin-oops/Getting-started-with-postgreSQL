@@ -139,27 +139,111 @@ JOINs
 6. List employees without projects.
 7. Show all projects and assigned employees.
 8. Find employees and their managers (Self Join).
+
+*/
+
+-- Available tables name
+
+SELECT * FROM departments;
+SELECT * FROM employees;
+SELECT * FROM projects;
+SELECT * FROM employee_projects;
+SELECT * FROM attendance;
+
+-- 5.
+SELECT e.first_name,d.department_name 
+FROM employees e INNER JOIN departments d
+ON e.department_id = d.department_id;
+
+
+SELECT e.first_name AS employee_name,d.department_name 
+FROM employees e INNER JOIN departments d
+ON e.department_id = d.department_id;
+
+
+-- 6.
+SELECT * FROM employees;
+SELECT * FROM employee_projects;
+
+SELECT e.first_name,p.project_id FROM employees e
+LEFT JOIN employee_projects p
+ON e.employee_id = p.employee_id WHERE p.employee_id IS NULL;
+
+-- 7.Show all projects and assigned employees.
+
+SELECT p.project_name,
+
+SELECT * FROM employees;  --e
+SELECT * FROM projects;   --p
+SELECT * FROM employee_projects;  --pp
+
+
+SELECT e.first_name,pp.employee_id,pp.project_id,p.project_name FROM employee_projects pp
+INNER JOIN projects p ON p.project_id = pp.project_id JOIN employees e	ON 	
+e.employee_id = pp.employee_id;
+
+
+SELECT p.project_name,e.first_name FROM employee_projects pp
+INNER JOIN projects p ON p.project_id = pp.project_id INNER JOIN employees e ON 	
+e.employee_id = pp.employee_id;
+
+SELECT p.project_name,
+       e.first_name
+FROM employee_projects ep
+JOIN projects p
+    ON p.project_id = ep.project_id
+JOIN employees e
+    ON e.employee_id = ep.employee_id;
+
+
+
+-- 8. Find employees and their managers (Self Join).
+
+SELECT * FROM departments;
+SELECT * FROM employees;
+SELECT * FROM projects;
+SELECT * FROM employee_projects;
+SELECT * FROM attendance;  
+
+SELECT employee_id,first_name,manager_id FROM employees;
+
+--second edition
+SELECT e.first_name AS Employee_name,m.first_name AS Manager_name FROM employees e INNER JOIN 
+employees m ON e.manager_id = m.employee_id;
+
+
+
+
+
+/*
+
 GROUP BY
 9. Average salary by department.
 10. Count employees in each department.
 11. Department with highest salary expense.
+
 Subqueries
 12. Employee with highest salary.
 13. Employees earning above average salary.
 14. Departments having more than 2 employees.
+
 CTEs
 15. Create a CTE for high-salary employees.
 16. Recursive CTE for employee-manager hierarchy.
+
 Window Functions
 17. Rank employees by salary.
 18. Dense rank employees within each department.
 19. Running total of salaries.
+
 Advanced
 20. Employees who are not assigned to any project (Anti Join).
 21. Top 3 highest-paid employees.
 22. Find salary difference from department average.
 23. Projects with budgets above average budget.
+
 This dataset is large enough to practice almost every PostgreSQL concept from beginner to advanced.
 
 */
+
 
