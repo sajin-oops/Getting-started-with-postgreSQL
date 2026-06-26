@@ -277,13 +277,11 @@ CTEs
 
 */
 -- 15.
+WITH high_salary_employees AS(
+	SELECT * FROM employees WHERE salary >= 70000
+)
+SELECT * FROM high_salary_employees;
 
-
-SELECT 
-	first_name,department_id,salary,
-	ROW_NUMBER() OVER() AS No_Of_Rows
-	FROM employees WHERE MAX(salary);
-	
 
 SELECT * FROM employees;
 
@@ -319,4 +317,100 @@ GROUP BY ROLLUP(department)
 ORDER BY department;
 
 
-SELECT department_id,SUM(salary) AS Toto
+--let's recall CTE(common table expression)
+
+/*
+
+A CTE is a temporary result set that you define using the WITH keyword.
+
+*/
+
+-- With out CTE
+
+SELECT * FROM employees WHERE salary >= 80000;
+
+-- Now try this with CTE
+
+WITH highest_salary_employees AS (
+	SELECT * FROM employees WHERE salary >= 80000
+)
+SELECT * FROM highest_salary_employees;
+
+
+WITH all_employees_name AS(
+	SELECT first_name,last_name FROM employees
+)
+SELECT * FROM all_employees_name;
+
+
+-- CTE with aggregation
+SELECT * FROM employees;
+
+
+WITH highest_salary_employees AS(
+	SELECT employee_id,first_name,last_name,salary,department_id,
+	RANK() OVER(ORDER BY salary DESC) AS salary_rank
+	FROM employees
+	WHERE salary > 60000
+)SELECT * FROM highest_salary_employees;
+
+
+
+-- Better one
+WITH highest_salary_employees AS(
+	SELECT employee_id,first_name,last_name,salary,department_id,
+	RANK() OVER(ORDER BY salary DESC) AS salary_rank
+	FROM employees
+	WHERE salary > 60000
+)
+SELECT 
+	salary_rank,first_name,last_name,salary
+	FROM highest_salary_employees;
+
+
+SELECT * FROM employees;
+
+
+
+--Let's Learn recursive CTE(COMMON TABLE EXPRESSION)
+
+
+-- Recursive CTE
+
+SELECT * FROM employees;
+
+SELECT employee_id,first_name,manager_id
+FROM employees ORDER BY employee_id;
+
+
+SELECT * FROM employees
+WHERE manager_id IS NULL;
+
+
+--first one - Build the organization tree
+
+WITH RECURSIVE employee_tree AS(
+--Ancher query 
+	SELECT
+		employee_id,first_name,manager_id,
+		1 AS level
+	FROM employees
+	WHERE manager_id IS NULL
+
+	UNION ALL
+-- Recursive query
+	SELECT
+		e.employee_id,
+		e.first_name,
+		e.manager_id,
+		et.level + 1
+	FROM employees e
+	JOIN employee_tree et
+	ON e.manager_id = et.employee_id
+)
+SELECT * FROM employee_tree;
+
+
+
+
+
