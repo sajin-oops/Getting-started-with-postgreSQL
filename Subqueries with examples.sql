@@ -412,5 +412,59 @@ SELECT * FROM employee_tree;
 
 
 
+WITH RECURSIVE employee_hierarchy AS(
+	SELECT employee_id,first_name,last_name,manager_id, 1 AS LEVEL
+	FROM employees 
+	WHERE manager_id IS NULL
+	UNION ALL
+
+	SELECT e.employee_id,e.first_name,e.last_name,e.manager_id,eh.LEVEL + 1
+	FROM employees e
+	INNER JOIN employee_hierarchy eh ON e.manager_id = eh.employee_id
+	
+)
+SELECT * FROM employee_hierarchy
+ORDER BY LEVEL, first_name;
+ 
 
 
+--another one
+WITH RECURSIVE manager_chain AS(
+	--BASE 
+	SELECT employee_id,first_name,manager_id,
+	CAST(first_name AS VARCHAR) AS CHAIN,
+	1 AS depth
+	FROM employees
+	WHERE manager_id IS NULL
+	
+	UNION ALL
+	--RECURSIVE
+	SELECT e.employee_id,e.first_name,e.manager_id,
+	mc.chain || '-> ' || e.first_name,
+	mc.depth + 1
+	FROM employees e
+	INNER JOIN manager_chain mc ON e.manager_id = mc.employee_id
+)
+SELECT employee_id,first_name,CHAIN,depth
+FROM manager_chain
+ORDER BY depth,first_name;
+
+
+SELECT * FROM employees;
+
+/*
+
+CTE (keyword - WITH): "Create a temporary table and use it once.
+
+Recursive CTE (keyword - WITH RECURSIVE): "Create a temporary table and 
+keep adding to it by referring to itself until there's nothing left to add."
+
+*/ 
+
+
+--Window function
+
+-- 17. Rank employees by salary.
+
+SELECT first_name,employee_id,salary,
+RANK() OVER( ORDER BY salary DESC) AS Salary_rank FROM employees;
