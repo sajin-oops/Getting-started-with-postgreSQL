@@ -468,3 +468,41 @@ keep adding to it by referring to itself until there's nothing left to add."
 
 SELECT first_name,employee_id,salary,
 RANK() OVER( ORDER BY salary DESC) AS Salary_rank FROM employees;
+
+
+
+-- 18. Dense rank employees within each department.
+
+
+SELECT first_name,employee_id,department_id,salary,
+DENSE_RANK() OVER(PARTITION BY department_id ORDER BY salary DESC) AS Salary_rank FROM employees;
+
+
+
+SELECT * FROM employees;
+SELECT * FROM departments;
+
+
+
+
+
+
+
+
+
+
+
+/*
+Window Functions
+18. Dense rank employees within each department.
+19. Running total of salaries.
+
+Advanced
+20. Employees who are not assigned to any project (Anti Join).
+21. Top 3 highest-paid employees.
+22. Find salary difference from department average.
+23. Projects with budgets above average budget.
+
+This dataset is large enough to practice almost every PostgreSQL concept from beginner to advanced.
+
+*/
