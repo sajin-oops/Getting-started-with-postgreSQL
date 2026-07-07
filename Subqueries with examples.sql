@@ -221,7 +221,8 @@ GROUP BY
 */
 
 -- 9.
-SELECT ROUND(AVG(e.salary)) AS Average_salary,d.department_name FROM employees e INNER JOIN departments D ON e.department_id = d.department_id GROUP BY e.department_id,d.department_name ;
+SELECT ROUND(AVG(e.salary)) AS Average_salary,d.department_name FROM employees e 
+INNER JOIN departments D ON e.department_id = d.department_id GROUP BY e.department_id,d.department_name ;
 
 --10.
 
@@ -462,44 +463,57 @@ keep adding to it by referring to itself until there's nothing left to add."
 */ 
 
 
+
+/*
 --Window function
 
--- 17. Rank employees by salary.
+Window Functions
+17. Rank employees by salary.
+18. Dense rank employees within each department.
+19. Running total of salaries.
+*/
 
+-- 17. Rank employees by salary.
 SELECT first_name,employee_id,salary,
 RANK() OVER( ORDER BY salary DESC) AS Salary_rank FROM employees;
 
 
 
 -- 18. Dense rank employees within each department.
-
-
 SELECT first_name,employee_id,department_id,salary,
-DENSE_RANK() OVER(PARTITION BY department_id ORDER BY salary DESC) AS Salary_rank FROM employees;
+DENSE_RANK() OVER(PARTITION BY department_id ORDER 	 BY salary DESC) AS Salary_rank FROM employees;
 
+
+-- 19.Running total of salaries.
+SELECT first_name,salary,SUM(salary) OVER(ORDER BY salary) AS running_salary
+FROM employees;
 
 
 SELECT * FROM employees;
 SELECT * FROM departments;
+SELECT * FROM projects;
+SELECT * FROM employee_projects;
+SELECT * FROM attendance;
+
+-- 20. Employees who are not assigned to any project (Anti Join).
+
+SELECT e.employee_id,e.first_name FROM employees e
+LEFT JOIN employee_projects ep ON e.employee_id = ep.employee_id 
+WHERE ep.employee_id IS NULL;
+
+SELECT e.employee_id,e.first_name FROM employees e
+LEFT JOIN employee_projects ep ON e.employee_id = ep.employee_id 
+WHERE ep.employee_id IS NOT NULL;
 
 
+-- 21. Top 3 highest-paid employees.
 
-
-
-
-
-
-
+SELECT first_name,salary FROM employees ORDER BY salary DESC LIMIT 3;
 
 
 /*
-Window Functions
-18. Dense rank employees within each department.
-19. Running total of salaries.
 
-Advanced
-20. Employees who are not assigned to any project (Anti Join).
-21. Top 3 highest-paid employees.
+Advanced 
 22. Find salary difference from department average.
 23. Projects with budgets above average budget.
 
