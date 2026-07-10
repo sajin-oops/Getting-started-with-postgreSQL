@@ -510,11 +510,23 @@ WHERE ep.employee_id IS NOT NULL;
 
 SELECT first_name,salary FROM employees ORDER BY salary DESC LIMIT 3;
 
+-- 22. Find salary difference from department average.
 
+SELECT e.employee_id,e.first_name,d.department_name,e.salary,
+ROUND(AVG(e.salary) OVER (PARTITION BY e.department_id),2) AS dept_avg_salary,
+ROUND(e.salary - AVG(e.salary)OVER(PARTITION BY e.department_id),2) AS Salary_Difference
+FROM employees e
+INNER JOIN departments d ON e.department_id = d.department_id;
+
+ 
+SELECT * FROM employees;
+SELECT * FROM departments;
+SELECT * FROM projects;
+SELECT * FROM employee_projects;
+SELECT * FROM attendance;
 /*
 
 Advanced 
-22. Find salary difference from department average.
 23. Projects with budgets above average budget.
 
 This dataset is large enough to practice almost every PostgreSQL concept from beginner to advanced.
