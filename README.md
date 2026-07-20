@@ -19,7 +19,7 @@ Each `.sql` file focuses on a specific concept with practice queries and example
 
 ## 🎯 Purpose
 
-A personal practice space for mastering SQL and PostgreSQL — built one query at a time.
+A personal practice space for mastering PostgreSQL — built one query at a time.
 
 ---
 ⭐ Feel free to explore, fork, or use these as reference for your own SQL learning journey!
