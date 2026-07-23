@@ -58,6 +58,102 @@ FROM sales;
 
 SELECT region,sale_date,amount,
 RANK() OVER(PARTITION BY region ORDER BY amount DESC),
-DENSE_RANK() OVER(PARTITION BY region ORDER BY amount DESC)
+DENSE_RANK() OVER(PARTITION BY region ORDER BY amount DESC)     
 FROM sales;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT * FROM sales;
+
+
+SELECT region,sale_date,amount,
+RANK() OVER(PARTITION BY region)
+FROM sales;
+
+
+SELECT region,sale_date,amount,
+RANK() OVER(PARTITION BY region ORDER BY amount DESC)
+FROM sales;
+
+SELECT region,sale_date,amount,
+RANK() OVER(PARTITION BY region ORDER BY amount ASC)
+FROM sales;
+
+
+
+SELECT region,sale_date,amount,
+DENSE_RANK() OVER(PARTITION BY region ORDER BY amount ASC)
+FROM sales;
+
+
+SELECT region,sale_date,amount,
+AVG(amount)OVER(PARTITION BY region ORDER BY sale_date DESC)
+FROM sales;
+
+
+SELECT region,sale_date,amount,
+AVG(amount)OVER(PARTITION BY region ORDER BY amount DESC)
+FROM sales;
+
+
+SELECT region,sale_date,amount,
+SUM(amount)OVER(PARTITION BY region ORDER BY sale_date DESC)
+FROM sales;
+
+
+SELECT region,sale_date,amount,
+	RANK() OVER(PARTITION BY region ORDER BY amount),
+	RANK() OVER( ORDER BY amount)
+FROM sales;
+
+
+
+SELECT region,sale_date,amount,
+	RANK() OVER(PARTITION BY region ORDER BY amount)
+FROM sales;
+
+
+
+SELECT region,sale_date,amount,
+	RANK() OVER(ORDER BY amount)
+FROM sales;
+
+
+SELECT * FROM sales;
+
+
+
+
+SELECT region,sale_date,amount,
+	RANK() OVER(PARTITION BY region ORDER BY amount),
+	RANK() OVER( ORDER BY amount)
+	
+FROM sales
+ORDER BY region,amount;
+
+
+--Better one always try to add ORDER BY ALSO IN THE end 
+SELECT region, sale_date, amount,
+       RANK() OVER (PARTITION BY region ORDER BY amount) AS rank_per_region,
+       RANK() OVER (ORDER BY amount) AS rank_overall
+FROM sales
+ORDER BY region, amount;
+
+
+
+
+
+
+
 
