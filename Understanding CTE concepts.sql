@@ -32,3 +32,18 @@ WITH avg_salary AS(
 )
 SELECT emp_name,salary FROM workers,avg_salary
 WHERE workers.salary > avg_salary.avg_sal;
+
+
+SELECT AVG(salary) FROM workers;
+
+-- CTE with aggregation
+-- Find the total salary per department, then filter departments with total salary above 100000:
+
+WITH dept_totals AS ( 
+	SELECT department,SUM(salary) AS total_salary
+	FROM workers
+	GROUP BY department
+)
+SELECT * FROM dept_totals
+WHERE total_salary > 100000;
+
