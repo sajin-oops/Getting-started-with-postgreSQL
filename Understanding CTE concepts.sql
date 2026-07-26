@@ -47,3 +47,22 @@ WITH dept_totals AS (
 SELECT * FROM dept_totals
 WHERE total_salary > 100000;
 
+
+
+-- Multiple CTEs
+WITH dept_avg AS(
+	SELECT department,AVG(salary) AS avg_sal
+	FROM workers
+	GROUP BY department
+	
+),
+high_earners AS(
+	SELECT emp_name,department,salary
+	FROM workers
+	WHERE salary > 60000 
+)
+SELECT h.emp_name,h.department,h.salary,d.avg_sal
+FROM high_earners h
+JOIN dept_avg d ON h.department = d.department;
+
+
