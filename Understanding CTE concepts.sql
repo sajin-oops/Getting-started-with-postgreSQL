@@ -49,7 +49,7 @@ WHERE total_salary > 100000;
 
 
 
--- Multiple CTEs
+														-- Multiple CTEs
 WITH dept_avg AS(
 	SELECT department,AVG(salary) AS avg_sal
 	FROM workers
@@ -66,3 +66,86 @@ FROM high_earners h
 JOIN dept_avg d ON h.department = d.department;
 
 
+ 
+
+SELECT * FROM workers;
+
+SELECT department FROM workers
+GROUP BY department;
+
+
+
+WITH Unique_departments AS(
+	SELECT department,SUM(salary) FROM workers
+	GROUP BY department)
+SELECT * FROM unique_departments;
+
+
+
+SELECT * FROM workers;
+
+--Getting employees id and employee name
+WITH all_employees AS (
+	SELECT * FROM workers
+)
+SELECT emp_id,emp_name FROM all_employees;
+
+
+WITH department_avg_salary AS(
+	SELECT department,AVG(salary)
+	FROM workers 
+	GROUP BY department
+	
+)
+SELECT * FROM department_avg_salary;
+SELECT * FROM workers;
+
+
+
+
+WITH department_avg_salary AS(
+	SELECT department,AVG(salary) AS dept_avg
+	FROM workers 
+	GROUP BY department
+),
+department_total_salary AS(
+	SELECT department, SUM(salary) AS dept_total 
+	FROM workers
+	GROUP BY department
+)
+SELECT * FROM department_total_salary;
+
+
+
+WITH department_avg_salary AS(
+	SELECT department,AVG(salary) AS dept_avg
+	FROM workers 
+	GROUP BY department
+),
+department_total_salary AS(
+	SELECT department, SUM(salary) AS dept_total
+	FROM workers
+	GROUP BY department
+)
+SELECT * FROM department_avg_salary;
+
+
+
+
+
+
+--Better one
+
+WITH department_avg_salary AS(
+	SELECT department,AVG(salary) AS dept_avg
+	FROM workers 
+	GROUP BY department
+),
+department_total_salary AS(
+	SELECT department, SUM(salary) AS dept_total
+	FROM workers
+	GROUP BY department
+)
+SELECT a.department,a.dept_avg,t.dept_total
+FROM department_avg_salary a
+JOIN department_total_salary t ON a.department = t.department;
