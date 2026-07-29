@@ -149,3 +149,38 @@ department_total_salary AS(
 SELECT a.department,a.dept_avg,t.dept_total
 FROM department_avg_salary a
 JOIN department_total_salary t ON a.department = t.department;
+
+
+
+SELECT * FROM workers WHERE manager_id IS NULL;
+
+SELECT * FROM workers;
+
+
+
+-- Recursive CTE
+
+WITH RECURSIVE org_chart AS (
+	SELECT  
+	emp_id,emp_name,department,manager_id,salary,
+	1 AS level,
+	emp_name::text AS path
+	FROM workers
+	WHERE manager_id IS NULL
+
+	UNION ALL
+
+	SELECT 
+	w.emp_id,
+	w.emp_name,
+	w.department,
+	w.manager_id,
+	w.salary,
+	oc.level + 1,
+	oc.path || '->' || w.emp_name
+	FROM workers w
+	JOIN org_chart oc ON w.manager_id = oc.emp_id
+	
+)
+SELECT * FROM org_chart
+ORDER BY path;
