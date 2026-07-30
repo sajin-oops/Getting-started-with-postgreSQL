@@ -184,3 +184,27 @@ WITH RECURSIVE org_chart AS (
 )
 SELECT * FROM org_chart
 ORDER BY path;
+
+SELECT * FROM workers;
+
+INSERT INTO workers(emp_name,department,salary,manager_id,hire_date) VALUES
+('Naveen', 'Engineering', 40000, 2, '2023-04-01'),
+('Sneha',  'Engineering', 38000, 2, '2023-05-15'),  
+('Ravi',   'Engineering', 35000, 9, '2023-06-01');
+
+
+WITH RECURSIVE org_chart AS(
+	SELECT emp_id,emp_name,manager_id, 1 AS level
+	FROM workers
+	WHERE manager_id IS NULL
+
+	UNION ALL
+
+	SELECT w.emp_id,w.emp_name,w.manager_id,oc.level + 1
+	FROM workers w
+	JOIN org_chart oc ON w.manager_id = oc.emp_id
+
+)
+SEARCH BREADTH FIRST BY emp_id SET ordercol
+SELECT * FROM org_chart
+ORDER BY ordercol;
