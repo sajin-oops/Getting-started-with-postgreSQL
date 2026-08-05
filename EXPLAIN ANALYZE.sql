@@ -77,3 +77,22 @@ WHERE department = 'engineering';
 -- Whether its estimates were accurate.
 
 
+CREATE INDEX idx_workers_department
+ON workers(department);
+
+
+EXPLAIN ANALYZE
+SELECT * FROM workers
+WHERE department = 'engineering';
+
+
+SELECT * FROM workers WHERE salary > 70000;
+
+CREATE INDEX idx_salary
+ON workers(salary);
+
+
+EXPLAIN ANALYZE
+SELECT * FROM workers
+WHERE salary > 70000;
+
