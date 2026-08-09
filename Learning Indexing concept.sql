@@ -129,3 +129,35 @@ ORDER BY avg_salary DESC;
 
 
 
+
+SELECT * FROM sales_transactions;
+
+SELECT * FROM employees;
+
+--DISTINCT and WINDOW FUNCTION
+SELECT DISTINCT first_name FROM employees;
+
+SELECT DISTINCT first_name,last_name FROM employees;
+
+SELECT COUNT(DISTINCT first_name) AS Unique_first_names
+FROM employees;
+
+SELECT  COUNT(DISTINCT first_name) AS Unique_first_names,
+COUNT(DISTINCT last_name) AS Unique_last_names
+FROM employees;
+
+SELECT  COUNT(DISTINCT first_name) AS Unique_first_names,
+COUNT(DISTINCT last_name) AS Unique_last_names,
+COUNT(DISTINCT department) AS departments
+FROM employees;
+
+SELECT DISTINCT first_name,last_name,
+	COUNT(*) OVER( PARTITION BY first_name,last_name) AS num_employees
+	FROM employees
+	ORDER BY num_employees DESC;
+
+
+SELECT DISTINCT first_name,
+	COUNT(*) OVER( PARTITION BY first_name) AS num_employees
+	FROM employees
+	ORDER BY num_employees DESC;
