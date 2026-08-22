@@ -94,10 +94,12 @@ SELECT EXTRACT(DAY FROM DATE '2026-08-19');
 SELECT EXTRACT(HOUR FROM TIMESTAMP '2026-08-19 14:30:45');
 
 
+-- Date Arithmetic
 
+-- Date Arithmetic (Adding days to date)
+SELECT DATE '2026-04-21' + 2;
 
+SELECT DATE '2026-04-15' - 2;
 
-
-
-
+SELECT DATE '2026-08-19' + INTERVAL '2 months';
 
